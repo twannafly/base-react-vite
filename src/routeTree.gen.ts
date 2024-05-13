@@ -13,41 +13,60 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as LayoutMainImport } from './routes/_layout-main'
 
 // Create Virtual Routes
 
-const AboutLazyImport = createFileRoute('/about')()
-const IndexLazyImport = createFileRoute('/')()
+const LayoutMainIndexLazyImport = createFileRoute('/_layout-main/')()
+const LayoutMainAboutLazyImport = createFileRoute('/_layout-main/about')()
 
 // Create/Update Routes
 
-const AboutLazyRoute = AboutLazyImport.update({
-  path: '/about',
+const LayoutMainRoute = LayoutMainImport.update({
+  id: '/_layout-main',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
+} as any)
 
-const IndexLazyRoute = IndexLazyImport.update({
+const LayoutMainIndexLazyRoute = LayoutMainIndexLazyImport.update({
   path: '/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+  getParentRoute: () => LayoutMainRoute,
+} as any).lazy(() =>
+  import('./routes/_layout-main/index.lazy').then((d) => d.Route),
+)
+
+const LayoutMainAboutLazyRoute = LayoutMainAboutLazyImport.update({
+  path: '/about',
+  getParentRoute: () => LayoutMainRoute,
+} as any).lazy(() =>
+  import('./routes/_layout-main/about.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      preLoaderRoute: typeof IndexLazyImport
+    '/_layout-main': {
+      preLoaderRoute: typeof LayoutMainImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      preLoaderRoute: typeof AboutLazyImport
-      parentRoute: typeof rootRoute
+    '/_layout-main/about': {
+      preLoaderRoute: typeof LayoutMainAboutLazyImport
+      parentRoute: typeof LayoutMainImport
+    }
+    '/_layout-main/': {
+      preLoaderRoute: typeof LayoutMainIndexLazyImport
+      parentRoute: typeof LayoutMainImport
     }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([IndexLazyRoute, AboutLazyRoute])
+export const routeTree = rootRoute.addChildren([
+  LayoutMainRoute.addChildren([
+    LayoutMainAboutLazyRoute,
+    LayoutMainIndexLazyRoute,
+  ]),
+])
 
 /* prettier-ignore-end */

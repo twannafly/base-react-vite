@@ -12,7 +12,7 @@ const RouteDevTools =
 export function TanStackRouterDevtools() {
   return (
     <Suspense>
-      <RouteDevTools />
+      <RouteDevTools position="bottom-right" />
     </Suspense>
   );
 }
