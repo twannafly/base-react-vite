@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+        --primary: '#fff',
+        --secondary: '#eee',
+    }
+    :root[data-theme="dark"] {
+        --primary: '#000',
+        --secondary: '#efe'
+    }
+    :root[data-theme="light"] {
+        --primary: '#fff',
+        --secondary: '#eee',
+    }
+}
