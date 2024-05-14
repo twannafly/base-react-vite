@@ -14,6 +14,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutMainImport } from './routes/_layout-main'
+import { Route as LayoutMainPostPostIdImport } from './routes/_layout-main/post/$postId'
 
 // Create Virtual Routes
 
@@ -41,6 +42,11 @@ const LayoutMainAboutLazyRoute = LayoutMainAboutLazyImport.update({
   import('./routes/_layout-main/about.lazy').then((d) => d.Route),
 )
 
+const LayoutMainPostPostIdRoute = LayoutMainPostPostIdImport.update({
+  path: '/post/$postId',
+  getParentRoute: () => LayoutMainRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -57,6 +63,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutMainIndexLazyImport
       parentRoute: typeof LayoutMainImport
     }
+    '/_layout-main/post/$postId': {
+      preLoaderRoute: typeof LayoutMainPostPostIdImport
+      parentRoute: typeof LayoutMainImport
+    }
   }
 }
 
@@ -66,6 +76,7 @@ export const routeTree = rootRoute.addChildren([
   LayoutMainRoute.addChildren([
     LayoutMainAboutLazyRoute,
     LayoutMainIndexLazyRoute,
+    LayoutMainPostPostIdRoute,
   ]),
 ])
 
