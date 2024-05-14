@@ -10,11 +10,25 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@solana/wallet-adapter-base": "^0.9.23",
+    "@solana/wallet-adapter-react": "^0.15.35",
+    "@solana/wallet-adapter-react-ui": "^0.9.35",
+    "@solana/wallet-adapter-wallets": "^0.19.32",
+    "@solana/web3.js": "^1.91.8",
     "@tanstack/react-query": "^5.36.0",
     "@tanstack/react-router": "^1.32.0",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "react-dom": "^18.2.0",
-    "valtio": "^1.13.2"
+    "valtio": "^1.13.2",
+    "@solana/wallet-adapter-alpha": "^0.1.10",
+    "@solana/wallet-adapter-clover": "^0.4.19",
+    "@solana/wallet-adapter-coin98": "^0.5.20",
+    "@solana/wallet-adapter-coinbase": "^0.1.19",
+    "@solana/wallet-adapter-coinhub": "^0.3.18",
+    "@solana/wallet-adapter-fractal": "^0.1.8",
+    "@solana/wallet-adapter-phantom": "^0.9.24",
+    "@solana/wallet-adapter-solflare": "^0.6.28",
+    "@solana/wallet-adapter-solong": "^0.9.18"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.35.6",
